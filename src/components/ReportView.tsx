@@ -3,16 +3,17 @@ import { CheckCircle, AlertTriangle, FileText, BarChart2, Calendar, Filter } fro
 import { Contract, ReportsData } from '../types';
 
 interface ReportViewProps {
-  reports: ReportsData;
-  contracts: Contract[];
+  reports?: ReportsData | null;
+  contracts?: Contract[];
 }
 
-export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) => {
+export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts = [] }) => {
   const [timeRange, setTimeRange] = useState<'all' | 'week' | 'month' | 'quarter' | 'year'>('all');
+  const safeContracts = Array.isArray(contracts) ? contracts : [];
 
   // Filter contracts based on selected time range
   const filteredContracts = useMemo(() => {
-    if (timeRange === 'all') return contracts;
+    if (timeRange === 'all') return safeContracts;
 
     const now = Date.now();
     let days = 30;
@@ -22,12 +23,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
     else if (timeRange === 'year') days = 365;
 
     const cutoff = now - days * 24 * 60 * 60 * 1000;
-    return contracts.filter(c => {
+    return safeContracts.filter(c => {
+      if (!c) return false;
       const dateStr = c.uploaded_at || c.lastActivityAt || c.signDate;
+      if (!dateStr) return false;
       const createdTime = new Date(dateStr).getTime();
       return createdTime >= cutoff;
     });
-  }, [contracts, timeRange]);
+  }, [safeContracts, timeRange]);
 
   // Compute metrics for filtered contracts
   const filteredMetrics = useMemo(() => {
@@ -35,6 +38,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
     let completedCount = 0;
 
     filteredContracts.forEach(c => {
+      if (!c) return;
       statusCounts[c.status] = (statusCounts[c.status] || 0) + 1;
       if (c.status === 'Hoàn tất') {
         completedCount++;
@@ -42,7 +46,8 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
     });
 
     const filteredContractIds = new Set(filteredContracts.map(c => c.id));
-    const filteredOverdue = reports.overdueContracts.filter(c => filteredContractIds.has(c.id));
+    const safeOverdue = Array.isArray(reports?.overdueContracts) ? reports!.overdueContracts : [];
+    const filteredOverdue = safeOverdue.filter(c => c && filteredContractIds.has(c.id));
 
     return {
       statusCounts,
@@ -50,7 +55,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
       totalCount: filteredContracts.length,
       overdueContracts: filteredOverdue,
     };
-  }, [filteredContracts, reports.overdueContracts]);
+  }, [filteredContracts, reports?.overdueContracts]);
 
   return (
     <div className="space-y-6" id="report-view-container">
@@ -176,7 +181,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
           <div className="border border-slate-100 rounded-xl p-4 bg-slate-50/50 space-y-2">
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tốc độ phản hồi Văn thư</p>
             <p className="text-2xl font-black text-slate-800 font-mono">
-              {reports.averages.avgUploadToPrintHours} <span className="text-xs font-normal">tiếng</span>
+              {reports?.averages?.avgUploadToPrintHours ?? '0.0'} <span className="text-xs font-normal">tiếng</span>
             </p>
             <p className="text-[10px] text-slate-500 leading-snug">Thời gian trung bình từ lúc Pháp chế upload file (.docx) đến lúc Văn thư bấm in ấn bưu phẩm.</p>
           </div>
@@ -185,7 +190,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
           <div className="border border-slate-100 rounded-xl p-4 bg-slate-50/50 space-y-2">
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Độ trễ ký kết của Sếp</p>
             <p className="text-2xl font-black text-slate-800 font-mono">
-              {reports.averages.avgPrintToSignHours} <span className="text-xs font-normal">tiếng</span>
+              {reports?.averages?.avgPrintToSignHours ?? '0.0'} <span className="text-xs font-normal">tiếng</span>
             </p>
             <p className="text-[10px] text-slate-500 leading-snug">Thời gian trung bình từ lúc bản in cứng sẵn sàng đến khi Sếp ký tay và đóng dấu vật lý hoàn thành.</p>
           </div>
@@ -194,7 +199,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ reports, contracts }) =>
           <div className="border border-slate-100 rounded-xl p-4 bg-slate-50/50 space-y-2">
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Vòng đời hoàn thành trung bình</p>
             <p className="text-2xl font-black text-slate-800 font-mono">
-              {reports.averages.avgTotalCycleHours} <span className="text-xs font-normal">tiếng</span>
+              {reports?.averages?.avgTotalCycleHours ?? '0.0'} <span className="text-xs font-normal">tiếng</span>
             </p>
             <p className="text-[10px] text-slate-500 leading-snug">Tổng thời gian trung bình từ khi hợp đồng được khai sinh đến lúc số hóa và lưu trữ hoàn tất hồ sơ.</p>
           </div>

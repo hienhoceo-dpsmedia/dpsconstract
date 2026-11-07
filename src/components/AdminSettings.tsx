@@ -3,7 +3,7 @@ import { Clock, Users, Mail, Plus, Trash2, Send, FileText, Activity, CheckCircle
 import { SettingsState } from '../types';
 
 interface AdminSettingsProps {
-  settings: SettingsState;
+  settings?: SettingsState | null;
   setSettings: React.Dispatch<React.SetStateAction<SettingsState | null>>;
   inviteEmail: string;
   setInviteEmail: (email: string) => void;
@@ -36,6 +36,15 @@ export const AdminSettings: React.FC<AdminSettingsProps> = ({
   const [userRoleFilter, setUserRoleFilter] = React.useState<'all' | 'admin' | 'legal' | 'clerk'>('all');
   const [userToDelete, setUserToDelete] = React.useState<string | null>(null);
 
+  if (!settings) {
+    return (
+      <div className="bg-white p-12 rounded-2xl border border-slate-200 text-center space-y-3" id="admin-settings-loading">
+        <Activity className="animate-spin text-emerald-600 mx-auto" size={28} />
+        <p className="text-sm font-semibold text-slate-600">Đang tải cấu hình hệ thống...</p>
+      </div>
+    );
+  }
+
   const formatDate = (isoStr: string | null) => {
     if (!isoStr) return '-';
     return new Date(isoStr).toLocaleString('vi-VN', {
@@ -48,7 +57,8 @@ export const AdminSettings: React.FC<AdminSettingsProps> = ({
   };
 
   const filteredUsers = (settings.users || []).filter(u => {
-    const matchesSearch = u.email.toLowerCase().includes(userSearchQuery.toLowerCase());
+    if (!u) return false;
+    const matchesSearch = (u.email || '').toLowerCase().includes(userSearchQuery.toLowerCase());
     const matchesRole = userRoleFilter === 'all' || u.role === userRoleFilter;
     return matchesSearch && matchesRole;
   });

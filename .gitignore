@@ -13,3 +13,6 @@ backup
 coverage
 test-results
 
+playwright-report
+data/storage
+server.legacy.ts

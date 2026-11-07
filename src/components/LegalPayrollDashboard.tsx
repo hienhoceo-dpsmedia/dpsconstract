@@ -61,9 +61,11 @@ export const LegalPayrollDashboard: React.FC<LegalPayrollDashboardProps> = ({
 
   // If non-admin, force selectedStaff to currentUser.email
   const effectiveSelectedStaff = isAdmin ? selectedStaff : userEmail;
+  const safeContracts = Array.isArray(contracts) ? contracts : [];
 
   // Filter tasks for LEGAL
-  const draftingTasks = contracts.filter(c => {
+  const draftingTasks = safeContracts.filter(c => {
+    if (!c) return false;
     if (!c.requested_at && !c.base_pay && c.status !== 'Chờ soạn thảo') return false;
     // Non-admin can only see tasks assigned to them or created by them
     if (!isAdmin && c.assigned_to !== userEmail && c.requested_by !== userEmail) return false;
@@ -105,7 +107,7 @@ export const LegalPayrollDashboard: React.FC<LegalPayrollDashboardProps> = ({
   const avgFeedbackCount = draftingTasks.length > 0 ? (totalFeedbacks / draftingTasks.length).toFixed(1) : '0.0';
 
   // Filter tasks for CLERK (Văn thư)
-  const clerkTasks = contracts.filter(c => c.processingMethod === 'physical' || c.printed_at || c.waybillCode || c.status !== 'Chờ soạn thảo');
+  const clerkTasks = safeContracts.filter(c => c && (c.processingMethod === 'physical' || c.printed_at || c.waybillCode || c.status !== 'Chờ soạn thảo'));
 
   const filteredClerkTasks = clerkTasks.filter(task => {
     if (searchQuery.trim() !== '') {

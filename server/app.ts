@@ -10,6 +10,9 @@ import { authRouter } from './modules/auth/routes.js';
 import { requireAuth } from './modules/auth/middleware.js';
 import { contractsRouter } from './modules/contracts/routes.js';
 import { payrollRouter } from './modules/payroll/routes.js';
+import { reportsRouter } from './modules/reports/routes.js';
+import { settingsRouter } from './modules/settings/routes.js';
+import { integrationsRouter } from './modules/integrations/routes.js';
 
 export interface AppFactoryOptions {
   config?: AppConfig;
@@ -95,6 +98,10 @@ export function createApp(options: AppFactoryOptions = {}): Express {
   app.use('/api/auth', authRouter);
   app.use('/api/contracts', requireAuth, contractsRouter);
   app.use('/api/payroll', payrollRouter);
+  app.use('/api/reports', reportsRouter);
+  app.use('/api/dashboard/reports', reportsRouter);
+  app.use('/api/settings', settingsRouter);
+  app.use('/api/sim', integrationsRouter);
 
   // Mount API router if provided
   if (options.apiRouter) {

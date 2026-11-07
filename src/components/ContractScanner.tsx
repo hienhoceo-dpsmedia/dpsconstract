@@ -156,7 +156,8 @@ export default function ContractScanner({
                 setScannedQrResult(qrText);
                 
                 // Match with contracts
-                const match = contracts.find(c => c.contractNumber === qrText || c.id === qrText);
+                const list = Array.isArray(contracts) ? contracts : [];
+                const match = list.find(c => c && (c.contractNumber === qrText || c.id === qrText));
                 if (match) {
                   setScannedContract(match);
                   setQrError('');
@@ -482,7 +483,8 @@ export default function ContractScanner({
       setTimeout(() => {
         // Try to match based on visual scan analysis simulation
         // Let's search contracts by active status 'Chờ bản gửi lại'
-        const candidate = contracts.find(c => c.status === 'Chờ bản gửi lại') || contracts[0];
+        const list = Array.isArray(contracts) ? contracts : [];
+        const candidate = list.find(c => c && c.status === 'Chờ bản gửi lại') || list[0];
         if (candidate) {
           setMatchedContract(candidate);
           setSearchQuery(candidate.contractNumber);
@@ -561,14 +563,15 @@ export default function ContractScanner({
   };
 
   // Filter contracts matching search query
-  const matchingContracts = contracts.filter(c => {
-    if (!searchQuery) return false;
+  const safeContracts = Array.isArray(contracts) ? contracts : [];
+  const matchingContracts = safeContracts.filter(c => {
+    if (!c || !searchQuery) return false;
     const query = searchQuery.toLowerCase().trim();
     return (
-      c.contractNumber.toLowerCase().includes(query) ||
-      c.waybillCode.toLowerCase().includes(query) ||
-      c.partnerName.toLowerCase().includes(query) ||
-      c.name.toLowerCase().includes(query)
+      (c.contractNumber || '').toLowerCase().includes(query) ||
+      (c.waybillCode || '').toLowerCase().includes(query) ||
+      (c.partnerName || '').toLowerCase().includes(query) ||
+      (c.name || '').toLowerCase().includes(query)
     );
   });
 

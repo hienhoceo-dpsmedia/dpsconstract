@@ -470,7 +470,10 @@ export const ContractTable: React.FC<ContractTableProps> = ({
   };
 
   // --- ACCENT-INSENSITIVE & NESTED LOG MATCHING FILTER ENGINE ---
-  const filteredContracts = contracts.filter((contract) => {
+  const safeContracts = Array.isArray(contracts) ? contracts : [];
+  const filteredContracts = safeContracts.filter((contract) => {
+    if (!contract) return false;
+
     // 1. Status Filter
     if (selectedStatuses.length > 0) {
       if (contract.status === 'Đã hủy' && !selectedStatuses.includes('Đã hủy')) {
@@ -493,15 +496,15 @@ export const ContractTable: React.FC<ContractTableProps> = ({
     // 3. Search query filter
     if (searchQuery.trim() !== '') {
       const q = removeVietnameseTones(searchQuery.trim().toLowerCase());
-      const numMatch = removeVietnameseTones(contract.contractNumber).toLowerCase().includes(q);
-      const nameMatch = removeVietnameseTones(contract.name).toLowerCase().includes(q);
-      const partMatch = removeVietnameseTones(contract.partnerName).toLowerCase().includes(q);
+      const numMatch = removeVietnameseTones(contract.contractNumber || '').toLowerCase().includes(q);
+      const nameMatch = removeVietnameseTones(contract.name || '').toLowerCase().includes(q);
+      const partMatch = removeVietnameseTones(contract.partnerName || '').toLowerCase().includes(q);
       const wayMatch = contract.waybillCode ? removeVietnameseTones(contract.waybillCode).toLowerCase().includes(q) : false;
       
-      const logMatch = contract.vtpStatusHistory?.some(log => 
-        removeVietnameseTones(log.status).toLowerCase().includes(q) || 
-        removeVietnameseTones(log.note).toLowerCase().includes(q)
-      );
+      const logMatch = Array.isArray(contract.vtpStatusHistory) ? contract.vtpStatusHistory.some(log => 
+        removeVietnameseTones(log?.status || '').toLowerCase().includes(q) || 
+        removeVietnameseTones(log?.note || '').toLowerCase().includes(q)
+      ) : false;
 
       return numMatch || nameMatch || partMatch || wayMatch || logMatch;
     }

@@ -20,7 +20,8 @@ export const ClerkManualMatcher: React.FC<ClerkManualMatcherProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Filter out archived/completed contracts or let them match any active contract
-  const activeContracts = contracts.filter(c => c.status !== 'Hoàn tất' && c.status !== 'Đã hủy');
+  const safeContracts = Array.isArray(contracts) ? contracts : [];
+  const activeContracts = safeContracts.filter(c => c && c.status !== 'Hoàn tất' && c.status !== 'Đã hủy');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -32,8 +33,8 @@ export const ClerkManualMatcher: React.FC<ClerkManualMatcherProps> = ({
     }
 
     // Try to find a exact or partial match of ContractNumber
-    const matched = contracts.find(
-      c => c.contractNumber.toLowerCase().trim() === val.toLowerCase().trim()
+    const matched = safeContracts.find(
+      c => c && (c.contractNumber || '').toLowerCase().trim() === val.toLowerCase().trim()
     );
     setMatchedContract(matched || null);
   };
