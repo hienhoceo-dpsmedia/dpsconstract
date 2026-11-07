@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { eq, or, sql } from 'drizzle-orm';
 import { getDb } from '../../db/client.js';
 import {
   contracts,
@@ -6,6 +6,7 @@ import {
   contractAuditLogs,
   contractIdentifiers,
   workItems,
+  users,
 } from '../../db/schema.js';
 import { getSettingsRecord } from '../settings/repository.js';
 import { AppError } from '../../http/errors.js';
@@ -18,6 +19,10 @@ export interface CreateDraftingRequestParams {
   valueText: string;
   valueAmount?: number;
   currency?: string;
+  contractNumber?: string;
+  googleDocsLink?: string;
+  deadline?: string | Date;
+  urgencyLevel?: string;
   draftingInstructions?: string;
   legalAssigneeId?: string | null;
   processingMethod?: 'physical' | 'digital';
@@ -52,12 +57,34 @@ export async function createDraftingRequest(params: CreateDraftingRequestParams)
   const settings = await getSettingsRecord();
   const basePayLegal = settings?.defaultBasePayLegal ?? 500000;
   const legalSlaHours = settings?.slaInternalHours ?? 24;
-  const deadline = new Date(now.getTime() + legalSlaHours * 3600 * 1000);
+
+  let targetDeadline = new Date(now.getTime() + legalSlaHours * 3600 * 1000);
+  if (params.deadline) {
+    const parsed = new Date(params.deadline);
+    if (!isNaN(parsed.getTime())) {
+      targetDeadline = parsed;
+    }
+  }
 
   const contractId = crypto.randomUUID();
-  const contractNumber = `YC-${Date.now()}-${crypto.randomUUID().slice(0, 4).toUpperCase()}`;
+  const rawNumber = params.contractNumber?.trim();
+  const contractNumber = rawNumber
+    ? normalizeContractNumber(rawNumber)
+    : `YC-${Date.now()}-${crypto.randomUUID().slice(0, 4).toUpperCase()}`;
   const cycleId = crypto.randomUUID();
   const workItemId = crypto.randomUUID();
+
+  // Resolve legalAssigneeId to valid users.id if provided as email or id
+  let resolvedLegalAssigneeId: string | null = null;
+  if (params.legalAssigneeId) {
+    const [foundUser] = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(or(eq(users.id, params.legalAssigneeId), eq(users.email, params.legalAssigneeId)));
+    if (foundUser) {
+      resolvedLegalAssigneeId = foundUser.id;
+    }
+  }
 
   return await db.transaction(async (tx) => {
     // 1. Insert contract
@@ -76,11 +103,12 @@ export async function createDraftingRequest(params: CreateDraftingRequestParams)
         processingMethod: params.processingMethod || 'physical',
         uploadedAt: now,
         statusEnteredAt: now,
-        statusDueAt: deadline,
+        statusDueAt: targetDeadline,
         createdBy: params.actorId,
-        legalAssigneeId: params.legalAssigneeId || null,
+        legalAssigneeId: resolvedLegalAssigneeId,
         currentCycleId: cycleId,
         draftingInstructions: params.draftingInstructions || null,
+        googleDocsLink: params.googleDocsLink || null,
         lastActivityAt: now,
       })
       .returning();
@@ -99,11 +127,11 @@ export async function createDraftingRequest(params: CreateDraftingRequestParams)
       id: workItemId,
       contractId,
       kind: 'legal',
-      assigneeId: params.legalAssigneeId || null,
+      assigneeId: resolvedLegalAssigneeId,
       payable: true,
       policySnapshot: settings || {},
       basePaySnapshot: basePayLegal,
-      deadline,
+      deadline: targetDeadline,
       startedAt: now,
       state: 'open',
       sourceCycleId: cycleId,

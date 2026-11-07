@@ -37,13 +37,24 @@ export const contractsRouter = Router();
 const draftRequestSchema = z.object({
   name: z.string().min(1, 'Tên hợp đồng là bắt buộc'),
   partnerName: z.string().min(1, 'Tên đối tác là bắt buộc'),
-  valueText: z.string().min(1, 'Giá trị hợp đồng là bắt buộc'),
+  valueText: z.string().optional(),
+  value: z.string().optional(),
   valueAmount: z.number().optional(),
   currency: z.string().optional(),
+  contractNumber: z.string().optional(),
+  googleDocsLink: z.string().optional(),
+  deadline: z.string().optional(),
+  urgencyLevel: z.string().optional(),
+  basePay: z.number().optional(),
   draftingInstructions: z.string().optional(),
   legalAssigneeId: z.string().optional().nullable(),
+  assignedTo: z.string().optional().nullable(),
   processingMethod: z.enum(['physical', 'digital']).optional(),
-});
+}).transform((data) => ({
+  ...data,
+  valueText: data.valueText || data.value || '0 VND',
+  legalAssigneeId: data.legalAssigneeId || data.assignedTo || null,
+}));
 
 const manualContractSchema = z.object({
   name: z.string().min(1, 'Tên hợp đồng là bắt buộc'),
@@ -93,11 +104,11 @@ contractsRouter.get('/', async (req, res, next) => {
   }
 });
 
-// POST /api/contracts/request-draft (Admin only)
+// POST /api/contracts/request-draft (Admin or Legal)
 contractsRouter.post(
   '/request-draft',
   requireAuth,
-  requireRole(['admin']),
+  requireRole(['admin', 'legal']),
   verifyCsrfToken,
   async (req, res, next) => {
     try {

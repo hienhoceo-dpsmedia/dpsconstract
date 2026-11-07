@@ -77,6 +77,13 @@ export const CreateDraftingRequestModal: React.FC<CreateDraftingRequestModalProp
       });
 
       if (success) {
+        setName('');
+        setContractNumber('');
+        setPartnerName('');
+        setValue('100.000.000 VNĐ');
+        setAssignedTo('');
+        setDraftingInstructions('');
+        setGoogleDocsLink('');
         onClose();
       } else {
         setError('Không thể tạo yêu cầu soạn thảo. Vui lòng kiểm tra lại thông tin hoặc thử lại.');
