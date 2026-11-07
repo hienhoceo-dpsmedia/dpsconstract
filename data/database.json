@@ -1,0 +1,1263 @@
+{
+  "settings": {
+    "slaInternalHours": 24,
+    "slaViettelPostDays": 3,
+    "defaultBasePayLegal": 500000,
+    "defaultBasePayClerk": 100000,
+    "slaPrintingHours": 2,
+    "slaCourierHours": 4,
+    "slaRetrievalDays": 7,
+    "slaEarlyMaxRate": 30,
+    "slaEarlyMidRate": 20,
+    "slaEarlyMinRate": 10,
+    "slaOnTimeRate": 0,
+    "slaLateMinRate": -10,
+    "slaLateMidRate": -20,
+    "slaLateMaxRate": -30,
+    "slaEarlyMaxTimePct": 50,
+    "slaEarlyMidTimePct": 25,
+    "slaEarlyMinTimePct": 5,
+    "slaLateMinHours": 2,
+    "slaLateMidHours": 6,
+    "feedback0Rate": 0,
+    "feedback1Rate": -10,
+    "feedback2Rate": -20,
+    "feedback3Rate": -30,
+    "teamsWebhookUrl": "https://outlook.office.com/webhook/example-teams-channel-for-contracts",
+    "teamsPayloadTemplate": "{\n  \"title\": \"{{title}}\",\n  \"text\": \"{{text}}\",\n  \"contractId\": \"{{contractId}}\",\n  \"status\": \"{{status}}\",\n  \"timestamp\": \"{{timestamp}}\"\n}",
+    "aiExtractEndpoint": "",
+    "aiExtractPayloadTemplate": "{\n  \"text\": \"{{text}}\",\n  \"mimeType\": \"{{mimeType}}\"\n}",
+    "googleDriveFolderId": "root/contracts_backup_folder",
+    "users": [
+      {
+        "email": "tankhoi.agribank@gmail.com",
+        "role": "admin",
+        "invitedAt": "2026-08-04T17:02:49.670Z"
+      },
+      {
+        "email": "legal@test.com",
+        "role": "legal",
+        "invitedAt": "2026-08-04T17:02:49.670Z"
+      },
+      {
+        "email": "clerk@test.com",
+        "role": "clerk",
+        "invitedAt": "2026-08-04T17:02:49.670Z"
+      },
+      {
+        "email": "admin@dps.media",
+        "role": "admin",
+        "invitedAt": "2026-11-07T03:07:19.244Z"
+      },
+      {
+        "email": "legal@dps.media",
+        "role": "legal",
+        "invitedAt": "2026-11-07T03:07:19.244Z"
+      },
+      {
+        "email": "clerk@dps.media",
+        "role": "clerk",
+        "invitedAt": "2026-11-07T03:07:19.244Z"
+      }
+    ],
+    "vtpConnectionStatus": "connected"
+  },
+  "contracts": [
+    {
+      "id": "con_seed_00_draft",
+      "name": "Hợp đồng Soạn thảo Cung cấp Giải pháp AI Chăm sóc Khách hàng",
+      "contractNumber": "HD-REQ-2026-001",
+      "partnerName": "Tập đoàn Công nghệ CMC",
+      "value": "500,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ soạn thảo",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [],
+      "auditLog": [
+        {
+          "id": "a0",
+          "contractId": "con_seed_00_draft",
+          "fromStatus": null,
+          "toStatus": "Chờ soạn thảo",
+          "updatedBy": "admin@test.com",
+          "updatedAt": "2026-08-04T16:00:00.000Z",
+          "note": "Quản lý tạo yêu cầu soạn thảo hợp đồng cho Legal. Hạn chót: 2026-08-05 17:00"
+        }
+      ],
+      "requested_by": "admin@test.com",
+      "requested_at": "2026-08-04T16:00:00.000Z",
+      "deadline": "2026-08-05T17:00:00.000Z",
+      "assigned_to": "legal@test.com",
+      "base_pay": 500000,
+      "urgency_level": "normal",
+      "urgency_coef": 0,
+      "feedback_count": 0,
+      "drafting_instructions": "Soạn thảo hợp đồng theo mẫu NDA & Cung cấp Dịch vụ AI 2026. Đơn giá nền: 500.000 VNĐ",
+      "uploaded_at": null,
+      "printed_at": null,
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": false,
+      "lastActivityAt": "2026-08-04T16:00:00.000Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Nguyễn Minh Anh",
+      "receiverPhone": "0981234567",
+      "receiverAddress": "Tòa nhà Viettel, 285 Cách Mạng Tháng Tám, Quận 10, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_01",
+      "name": "Hợp đồng Thuê Thiết bị Máy chủ Cloud Agribank",
+      "contractNumber": "HD-2026-CLD01",
+      "partnerName": "Công ty Cổ phần Công nghệ Viettel",
+      "value": "840,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ duyệt bản mềm",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f1",
+          "name": "Hop_Dong_Thue_Cloud_Viettel_signed.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T12:02:54.663Z",
+          "size": 1048576,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/Hop_Dong_Thue_Cloud_Viettel_signed.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a1",
+          "contractId": "con_seed_01",
+          "fromStatus": null,
+          "toStatus": "Chờ duyệt bản mềm",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T12:02:54.663Z",
+          "note": "Pháp chế khởi tạo hợp đồng và tải lên file gốc .docx"
+        }
+      ],
+      "uploaded_at": "2026-08-04T12:02:54.663Z",
+      "printed_at": null,
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T12:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Nguyễn Minh Anh",
+      "receiverPhone": "0981234567",
+      "receiverAddress": "Tòa nhà Viettel, 285 Cách Mạng Tháng Tám, Quận 10, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_02",
+      "name": "Hợp đồng Cung cấp Dịch vụ Bảo trì Phần mềm CoreBanking",
+      "contractNumber": "HD-2026-CORE01",
+      "partnerName": "Công ty TNHH Giải pháp Phần mềm FPT",
+      "value": "1,200,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ in",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f2",
+          "name": "HD_Bao_Tri_FPT_Core_2026.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T16:02:54.663Z",
+          "size": 1205312,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Bao_Tri_FPT_Core_2026.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a2",
+          "contractId": "con_seed_02",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T16:02:54.663Z",
+          "note": "Pháp chế tải lên hợp đồng gốc."
+        }
+      ],
+      "uploaded_at": "2026-08-04T16:02:54.663Z",
+      "printed_at": null,
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T16:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Trần Thanh Hải",
+      "receiverPhone": "0913987654",
+      "receiverAddress": "Tòa nhà FPT, Phố Duy Tân, Cầu Giấy, Hà Nội"
+    },
+    {
+      "id": "con_seed_03",
+      "name": "Hợp đồng Tài trợ Độc quyền Giải chạy Marathon Agribank",
+      "contractNumber": "HD-2026-MRA05",
+      "partnerName": "Công ty Cổ phần Sự kiện Agribank Land",
+      "value": "350,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Đang chờ ký",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f3",
+          "name": "HD_Tai_Tro_Marathon_2026.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T09:02:54.663Z",
+          "size": 852100,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Tai_Tro_Marathon_2026.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a3_1",
+          "contractId": "con_seed_03",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T09:02:54.663Z",
+          "note": "Pháp chế tải lên hợp đồng."
+        },
+        {
+          "id": "a3_2",
+          "contractId": "con_seed_03",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đang chờ ký",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T11:02:54.663Z",
+          "note": "Văn thư xác nhận đã in xong bản thảo giấy và trình ký Ban Giám đốc."
+        }
+      ],
+      "uploaded_at": "2026-08-04T09:02:54.663Z",
+      "printed_at": "2026-08-04T11:02:54.663Z",
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T11:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Phạm Đức Long",
+      "receiverPhone": "0975654321",
+      "receiverAddress": "123 Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_04",
+      "name": "Hợp đồng Thuê Đường truyền Internet Kênh thuê riêng Leased Line",
+      "contractNumber": "HD-2026-NET02",
+      "partnerName": "Tổng Công ty Viễn thông VNPT",
+      "value": "220,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Đang chờ ký",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f4",
+          "name": "HD_Thue_Internet_VNPT_LeasedLine.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T15:32:54.663Z",
+          "size": 541020,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Thue_Internet_VNPT_LeasedLine.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a4_1",
+          "contractId": "con_seed_04",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T15:32:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a4_2",
+          "contractId": "con_seed_04",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đang chờ ký",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T16:32:54.663Z",
+          "note": "In xong bản cứng trình Sếp."
+        }
+      ],
+      "uploaded_at": "2026-08-04T15:32:54.663Z",
+      "printed_at": "2026-08-04T16:32:54.663Z",
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T16:32:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Hoàng Lan Phương",
+      "receiverPhone": "0904321098",
+      "receiverAddress": "78 Láng Hạ, Quận Đống Đa, Hà Nội"
+    },
+    {
+      "id": "con_seed_05",
+      "name": "Hợp đồng Tư vấn Thẩm định Tài sản Dự án Agribank Tower",
+      "contractNumber": "HD-2026-VAL01",
+      "partnerName": "Công ty Cổ phần Định giá và Kiểm toán Việt Nam",
+      "value": "450,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ tạo vận đơn",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f5",
+          "name": "HD_Tu_Van_Tham_Dinh_Tower_2026.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T07:02:54.663Z",
+          "size": 911024,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Tu_Van_Tham_Dinh_Tower_2026.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a5_1",
+          "contractId": "con_seed_05",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T07:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a5_2",
+          "contractId": "con_seed_05",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đang chờ ký",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T09:02:54.663Z",
+          "note": "Đã in trình Sếp."
+        },
+        {
+          "id": "a5_3",
+          "contractId": "con_seed_05",
+          "fromStatus": "Đang chờ ký",
+          "toStatus": "Chờ tạo vận đơn",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T13:02:54.663Z",
+          "note": "Sếp đã ký tay đóng dấu vật lý. Chờ Văn thư tạo mã vận đơn gửi đi."
+        }
+      ],
+      "uploaded_at": "2026-08-04T07:02:54.663Z",
+      "printed_at": "2026-08-04T09:02:54.663Z",
+      "signed_at": "2026-08-04T13:02:54.663Z",
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T13:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Đặng Quốc Bảo",
+      "receiverPhone": "0389876543",
+      "receiverAddress": "85 Nguyễn Du, Quận Hai Bà Trưng, Hà Nội"
+    },
+    {
+      "id": "con_seed_06",
+      "name": "Hợp đồng Cung cấp Mực in và Văn phòng phẩm Năm 2026",
+      "contractNumber": "HD-2026-VPP12",
+      "partnerName": "Công ty Cổ phần Thương mại Hồng Hà",
+      "value": "95,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ tạo vận đơn",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f6",
+          "name": "HD_Cung_Cap_Van_Phong_Pham_Hong_Ha.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T14:02:54.663Z",
+          "size": 312000,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Cung_Cap_Van_Phong_Pham_Hong_Ha.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a6_1",
+          "contractId": "con_seed_06",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T14:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a6_2",
+          "contractId": "con_seed_06",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đang chờ ký",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T15:02:54.663Z",
+          "note": "In xong bản cứng."
+        },
+        {
+          "id": "a6_3",
+          "contractId": "con_seed_06",
+          "fromStatus": "Đang chờ ký",
+          "toStatus": "Chờ tạo vận đơn",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T16:44:54.663Z",
+          "note": "Sếp đã ký xong."
+        }
+      ],
+      "uploaded_at": "2026-08-04T14:02:54.663Z",
+      "printed_at": "2026-08-04T15:02:54.663Z",
+      "signed_at": "2026-08-04T16:44:54.663Z",
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T16:44:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Phan Minh Tuấn",
+      "receiverPhone": "0354123987",
+      "receiverAddress": "45 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_07",
+      "name": "Hợp đồng Thiết kế Website Thương mại Điện tử Agribank Mall",
+      "contractNumber": "HD-2026-WEB05",
+      "partnerName": "Công ty TNHH Giải pháp Số Netco",
+      "value": "420,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ shipper đến lấy",
+      "waybillCode": "VTP-SEED-9901",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f7",
+          "name": "HD_Thiet_Ke_Web_Agribank_Mall.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T12:02:54.663Z",
+          "size": 760000,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Thiet_Ke_Web_Agribank_Mall.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a7_1",
+          "contractId": "con_seed_07",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T12:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a7_2",
+          "contractId": "con_seed_07",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đang chờ ký",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T13:02:54.663Z",
+          "note": "In hoàn thành."
+        },
+        {
+          "id": "a7_3",
+          "contractId": "con_seed_07",
+          "fromStatus": "Đang chờ ký",
+          "toStatus": "Chờ tạo vận đơn",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T15:02:54.663Z",
+          "note": "Sếp đã ký đóng dấu."
+        },
+        {
+          "id": "a7_4",
+          "contractId": "con_seed_07",
+          "fromStatus": "Chờ tạo vận đơn",
+          "toStatus": "Chờ shipper đến lấy",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T16:02:54.663Z",
+          "note": "Gán mã bưu gửi Viettel Post VTP-SEED-9901. Đang đợi shipper qua bốc hàng."
+        }
+      ],
+      "uploaded_at": "2026-08-04T12:02:54.663Z",
+      "printed_at": "2026-08-04T13:02:54.663Z",
+      "signed_at": "2026-08-04T15:02:54.663Z",
+      "waybill_created_at": "2026-08-04T16:02:54.663Z",
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": false,
+      "slaBreachType": null,
+      "lastActivityAt": "2026-08-04T16:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Vũ Thị Hồng Nhung",
+      "receiverPhone": "0932154876",
+      "receiverAddress": "Tòa nhà VNPT, 57 Huỳnh Thúc Kháng, Đống Đa, Hà Nội"
+    },
+    {
+      "id": "con_seed_08",
+      "name": "Hợp đồng Cung cấp Điện lạnh và Điều hòa Trung tâm Chi nhánh Hải Phòng",
+      "contractNumber": "HD-2026-AC03",
+      "partnerName": "Công ty Cổ phần Cơ điện lạnh Daikin VN",
+      "value": "580,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Đang giao",
+      "waybillCode": "VTP-LATE-1102",
+      "vtpStatusHistory": [
+        {
+          "status": "PICKED_UP",
+          "updatedAt": "2026-07-30T17:02:54.663Z",
+          "note": "Bưu tá đã gom hàng thành công."
+        },
+        {
+          "status": "IN_TRANSIT",
+          "updatedAt": "2026-07-31T17:02:54.663Z",
+          "note": "Hàng rời kho phân loại trung tâm Hà Nội."
+        }
+      ],
+      "files": [
+        {
+          "id": "f8",
+          "name": "HD_Dieu_Hoa_Daikin_Chi_Nhanh_HP.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-07-29T17:02:54.663Z",
+          "size": 1102400,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Dieu_Hoa_Daikin_Chi_Nhanh_HP.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a8_1",
+          "contractId": "con_seed_08",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-07-29T17:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a8_2",
+          "contractId": "con_seed_08",
+          "fromStatus": "Chờ in",
+          "toStatus": "Chờ tạo vận đơn",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-07-29T21:50:54.663Z",
+          "note": "Đã in ấn và trình ký thành công nhanh chóng."
+        },
+        {
+          "id": "a8_3",
+          "contractId": "con_seed_08",
+          "fromStatus": "Chờ tạo vận đơn",
+          "toStatus": "Chờ shipper đến lấy",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-07-30T05:02:54.663Z",
+          "note": "Gán mã bưu gửi VTP-LATE-1102."
+        },
+        {
+          "id": "a8_4",
+          "contractId": "con_seed_08",
+          "fromStatus": "Chờ shipper đến lấy",
+          "toStatus": "Đang giao",
+          "updatedBy": "Viettel Post Webhook",
+          "updatedAt": "2026-07-30T17:02:54.663Z",
+          "note": "Viettel Post xác nhận bưu tá đã lấy hàng, bắt đầu hành trình."
+        }
+      ],
+      "uploaded_at": "2026-07-29T17:02:54.663Z",
+      "printed_at": "2026-07-29T19:26:54.663Z",
+      "signed_at": "2026-07-29T21:50:54.663Z",
+      "waybill_created_at": "2026-07-30T05:02:54.663Z",
+      "picked_up_at": "2026-07-30T17:02:54.663Z",
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "viettelpost",
+      "lastActivityAt": "2026-07-30T17:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Lê Văn Nam",
+      "receiverPhone": "0967384920",
+      "receiverAddress": "Số 10 Trần Phú, Quận Hà Đông, Hà Nội"
+    },
+    {
+      "id": "con_seed_09",
+      "name": "Hợp đồng Tư vấn Thiết kế Kiến trúc Nội thất Agribank Cần Thơ",
+      "contractNumber": "HD-2026-ARC12",
+      "partnerName": "Công ty Cổ phần Thiết kế Không gian Đẹp",
+      "value": "270,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Đang giao",
+      "waybillCode": "VTP-OK-5510",
+      "vtpStatusHistory": [
+        {
+          "status": "PICKED_UP",
+          "updatedAt": "2026-08-03T17:02:54.663Z",
+          "note": "Bưu tá đã gom bưu phẩm."
+        }
+      ],
+      "files": [
+        {
+          "id": "f9",
+          "name": "HD_Kien_Truc_Noi_That_CT.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-02T17:02:54.663Z",
+          "size": 681320,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Kien_Truc_Noi_That_CT.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a9_1",
+          "contractId": "con_seed_09",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-02T17:02:54.663Z",
+          "note": "Tạo mới."
+        },
+        {
+          "id": "a9_2",
+          "contractId": "con_seed_09",
+          "fromStatus": "Chờ shipper đến lấy",
+          "toStatus": "Đang giao",
+          "updatedBy": "Viettel Post Webhook",
+          "updatedAt": "2026-08-03T17:02:54.663Z",
+          "note": "Bưu phẩm rời bưu cục gửi."
+        }
+      ],
+      "uploaded_at": "2026-08-02T17:02:54.663Z",
+      "printed_at": "2026-08-02T21:50:54.663Z",
+      "signed_at": "2026-08-03T00:14:54.663Z",
+      "waybill_created_at": "2026-08-03T05:02:54.663Z",
+      "picked_up_at": "2026-08-03T17:02:54.663Z",
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "viettelpost",
+      "lastActivityAt": "2026-08-03T17:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Bùi Thị Tuyết",
+      "receiverPhone": "0988776655",
+      "receiverAddress": "256 Lê Lợi, Ngô Quyền, Hải Phòng"
+    },
+    {
+      "id": "con_seed_10",
+      "name": "Hợp đồng Hợp tác Đào tạo Nhân sự Công nghệ thông tin Chất lượng cao",
+      "contractNumber": "HD-2026-EDU04",
+      "partnerName": "Học viện Công nghệ Bưu chính Viễn thông PTIT",
+      "value": "450,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ bản gửi lại",
+      "waybillCode": "VTP-RE-4402",
+      "vtpStatusHistory": [
+        {
+          "status": "DELIVERED",
+          "updatedAt": "2026-08-04T07:02:54.663Z",
+          "note": "Đã phát thành công bưu phẩm đến đối tác."
+        }
+      ],
+      "files": [
+        {
+          "id": "f10",
+          "name": "HD_Dao_Tao_CNTT_PTIT_2026.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-03T21:02:54.663Z",
+          "size": 1024311,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Dao_Tao_CNTT_PTIT_2026.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a10_1",
+          "contractId": "con_seed_10",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-03T21:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a10_2",
+          "contractId": "con_seed_10",
+          "fromStatus": "Đang giao",
+          "toStatus": "Chờ bản gửi lại",
+          "updatedBy": "Viettel Post Webhook",
+          "updatedAt": "2026-08-04T07:02:54.663Z",
+          "note": "Viettel Post báo phát thành công hợp đồng cứng tới PTIT. Đang đợi PTIT đóng dấu gửi trả."
+        }
+      ],
+      "uploaded_at": "2026-08-03T21:02:54.663Z",
+      "printed_at": "2026-08-03T23:02:54.663Z",
+      "signed_at": "2026-08-04T00:02:54.663Z",
+      "waybill_created_at": "2026-08-04T01:02:54.663Z",
+      "picked_up_at": "2026-08-04T03:02:54.663Z",
+      "delivered_at": "2026-08-04T07:02:54.663Z",
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T07:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Trịnh Đình Quang",
+      "receiverPhone": "0912112233",
+      "receiverAddress": "512 Điện Biên Phủ, Quận Thanh Khê, Đà Nẵng"
+    },
+    {
+      "id": "con_seed_11",
+      "name": "Hợp đồng Thu mua Nông sản Xuất khẩu Hợp tác xã Lâm Đồng",
+      "contractNumber": "HD-2026-AGR02",
+      "partnerName": "Hợp tác xã Nông nghiệp Lâm Đồng",
+      "value": "2,500,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Chờ bản gửi lại",
+      "waybillCode": "VTP-RE-9988",
+      "vtpStatusHistory": [
+        {
+          "status": "DELIVERED",
+          "updatedAt": "2026-08-04T16:02:54.663Z",
+          "note": "Phát hàng thành công."
+        }
+      ],
+      "files": [
+        {
+          "id": "f11",
+          "name": "HD_Thu_Mua_Nong_San_Lam_Dong.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T12:02:54.663Z",
+          "size": 541200,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Thu_Mua_Nong_San_Lam_Dong.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a11_1",
+          "contractId": "con_seed_11",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T12:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a11_2",
+          "contractId": "con_seed_11",
+          "fromStatus": "Đang giao",
+          "toStatus": "Chờ bản gửi lại",
+          "updatedBy": "Viettel Post Webhook",
+          "updatedAt": "2026-08-04T16:02:54.663Z",
+          "note": "Bưu phẩm giấy đã trao tay đại diện HTX Lâm Đồng."
+        }
+      ],
+      "uploaded_at": "2026-08-04T12:02:54.663Z",
+      "printed_at": "2026-08-04T12:32:54.663Z",
+      "signed_at": "2026-08-04T13:02:54.663Z",
+      "waybill_created_at": "2026-08-04T13:32:54.663Z",
+      "picked_up_at": "2026-08-04T14:02:54.663Z",
+      "delivered_at": "2026-08-04T16:02:54.663Z",
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T16:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Nguyễn Minh Anh",
+      "receiverPhone": "0981234567",
+      "receiverAddress": "Tòa nhà Viettel, 285 Cách Mạng Tháng Tám, Quận 10, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_12",
+      "name": "Hợp đồng Cung cấp Hệ thống Camera Giám sát Toàn văn phòng",
+      "contractNumber": "HD-2026-CAM33",
+      "partnerName": "Công ty Cổ phần Camera Số thông minh Việt Nam",
+      "value": "185,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Hoàn tất",
+      "waybillCode": "VTP-DONE-1234",
+      "vtpStatusHistory": [
+        {
+          "status": "DELIVERED",
+          "updatedAt": "2026-08-01T17:02:54.663Z",
+          "note": "Giao hàng thành công bưu phẩm."
+        }
+      ],
+      "files": [
+        {
+          "id": "f12_org",
+          "name": "HD_He_Thong_Camera_Cam33_org.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-07-30T17:02:54.663Z",
+          "size": 984120,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_He_Thong_Camera_Cam33_org.docx"
+        },
+        {
+          "id": "f12_scan",
+          "name": "HD_He_Thong_Camera_Cam33_scanned.pdf",
+          "type": "scan",
+          "uploadedBy": "clerk@test.com",
+          "uploadedAt": "2026-08-02T17:02:54.663Z",
+          "size": 2450110,
+          "mimeType": "application/pdf",
+          "filePath": "data/contracts/HD_He_Thong_Camera_Cam33_scanned.pdf"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a12_1",
+          "contractId": "con_seed_12",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-07-30T17:02:54.663Z",
+          "note": "Tạo mới hợp đồng."
+        },
+        {
+          "id": "a12_2",
+          "contractId": "con_seed_12",
+          "fromStatus": "Chờ bản gửi lại",
+          "toStatus": "Chờ bản gửi lại",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-02T14:38:54.663Z",
+          "note": "Văn thư tiếp nhận bản gốc từ đối tác ký gửi lại, scan số hóa thành công."
+        },
+        {
+          "id": "a12_3",
+          "contractId": "con_seed_12",
+          "fromStatus": "Chờ bản gửi lại",
+          "toStatus": "Hoàn tất",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-02T17:02:54.663Z",
+          "note": "Hồ sơ đã được lưu kho vật lý kệ A-12 và đồng bộ lưu trữ an toàn Google Drive. Kết thúc vòng đời."
+        }
+      ],
+      "uploaded_at": "2026-07-30T17:02:54.663Z",
+      "printed_at": "2026-07-30T21:50:54.663Z",
+      "signed_at": "2026-07-31T00:14:54.663Z",
+      "waybill_created_at": "2026-07-31T05:02:54.663Z",
+      "picked_up_at": "2026-07-31T12:14:54.663Z",
+      "delivered_at": "2026-08-01T17:02:54.663Z",
+      "received_back_at": "2026-08-02T14:38:54.663Z",
+      "archived_at": "2026-08-02T17:02:54.663Z",
+      "slaBreached": false,
+      "slaBreachType": null,
+      "lastActivityAt": "2026-08-02T17:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Trần Thanh Hải",
+      "receiverPhone": "0913987654",
+      "receiverAddress": "Tòa nhà FPT, Phố Duy Tân, Cầu Giấy, Hà Nội"
+    },
+    {
+      "id": "con_seed_13",
+      "name": "Hợp đồng Thuê Thiết bị Phân tích Mạng viễn thông Cao cấp",
+      "contractNumber": "HD-2026-NET09",
+      "partnerName": "Công ty Cổ phần Giải pháp Mạng NetViet",
+      "value": "310,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Bị từ chối ký",
+      "waybillCode": "VTP-REJ-9011",
+      "vtpStatusHistory": [
+        {
+          "status": "DELIVERED",
+          "updatedAt": "2026-08-04T05:02:54.663Z",
+          "note": "Đã giao thành công hợp đồng cứng cho đối tác."
+        },
+        {
+          "status": "REJECTED_BY_PARTNER",
+          "updatedAt": "2026-08-04T09:02:54.663Z",
+          "note": "Đối tác từ chối ký duyệt bưu phẩm và trả lại do sai lệch điều khoản thanh toán tại Mục 5.2."
+        }
+      ],
+      "files": [
+        {
+          "id": "f13",
+          "name": "HD_Thue_Thiet_Bi_Analytic_NetViet.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-03T17:02:54.663Z",
+          "size": 412000,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Thue_Thiet_Bi_Analytic_NetViet.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a13_1",
+          "contractId": "con_seed_13",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-03T17:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a13_2",
+          "contractId": "con_seed_13",
+          "fromStatus": "Chờ bản gửi lại",
+          "toStatus": "Bị từ chối ký",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T09:02:54.663Z",
+          "note": "LỖI NGHIỆP VỤ: Đối tác gọi điện từ chối ký do bất đồng điều khoản thanh toán ở Mục 5.2. Chuyển trạng thái về Bị từ chối để Pháp chế cập nhật đàm phán lại."
+        }
+      ],
+      "uploaded_at": "2026-08-03T17:02:54.663Z",
+      "printed_at": "2026-08-03T19:02:54.663Z",
+      "signed_at": "2026-08-03T20:02:54.663Z",
+      "waybill_created_at": "2026-08-03T21:02:54.663Z",
+      "picked_up_at": "2026-08-03T23:02:54.663Z",
+      "delivered_at": "2026-08-04T05:02:54.663Z",
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": false,
+      "slaBreachType": null,
+      "lastActivityAt": "2026-08-04T09:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Phạm Đức Long",
+      "receiverPhone": "0975654321",
+      "receiverAddress": "123 Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_14",
+      "name": "Hợp đồng Cung cấp Dịch vụ Bảo vệ Chuyên nghiệp Chi nhánh Tây Hà Nội",
+      "contractNumber": "HD-2026-SEC04",
+      "partnerName": "Công ty Cổ phần Dịch vụ Bảo vệ An ninh Toàn Cầu",
+      "value": "180,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Sự cố vận chuyển",
+      "waybillCode": "VTP-LOST-7788",
+      "vtpStatusHistory": [
+        {
+          "status": "PICKED_UP",
+          "updatedAt": "2026-07-31T17:02:54.663Z",
+          "note": "Đã nhận hàng gom."
+        },
+        {
+          "status": "SHIPPING_ISSUE",
+          "updatedAt": "2026-08-02T17:02:54.663Z",
+          "note": "Bưu phẩm bị ướt hỏng hoàn toàn dọc đường do tai nạn mưa bão bùng khi vận chuyển."
+        }
+      ],
+      "files": [
+        {
+          "id": "f14",
+          "name": "HD_Bao_Ve_Chi_Nhanh_TayHN.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-07-30T17:02:54.663Z",
+          "size": 310500,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Bao_Ve_Chi_Nhanh_TayHN.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a14_1",
+          "contractId": "con_seed_14",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-07-30T17:02:54.663Z",
+          "note": "Tạo mới."
+        },
+        {
+          "id": "a14_2",
+          "contractId": "con_seed_14",
+          "fromStatus": "Đang giao",
+          "toStatus": "Sự cố vận chuyển",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-02T17:02:54.663Z",
+          "note": "SỰ CỐ VẬN CHUYỂN: Viettel Post phản hồi bưu phẩm bị ướt rách hỏng hoàn toàn dọc đường do tai nạn mưa bão. Cần văn thư in lại bản cứng trình Sếp ký lại bưu gửi khác."
+        }
+      ],
+      "uploaded_at": "2026-07-30T17:02:54.663Z",
+      "printed_at": "2026-07-30T21:50:54.663Z",
+      "signed_at": "2026-07-31T00:14:54.663Z",
+      "waybill_created_at": "2026-07-31T05:02:54.663Z",
+      "picked_up_at": "2026-07-31T17:02:54.663Z",
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": false,
+      "slaBreachType": null,
+      "lastActivityAt": "2026-08-02T17:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Hoàng Lan Phương",
+      "receiverPhone": "0904321098",
+      "receiverAddress": "78 Láng Hạ, Quận Đống Đa, Hà Nội"
+    },
+    {
+      "id": "con_seed_15",
+      "name": "Hợp đồng Thiết kế Thi công Biển hiệu Quảng cáo Chi nhánh Nam Hà Nội",
+      "contractNumber": "HD-2026-ADV01",
+      "partnerName": "Công ty TNHH Mỹ thuật và Truyền thông Hà Nội",
+      "value": "65,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Đã hủy",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f15",
+          "name": "HD_Quang_Cao_Bien_Hieu_NamHN.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-07-25T17:02:54.663Z",
+          "size": 280000,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Quang_Cao_Bien_Hieu_NamHN.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a15_1",
+          "contractId": "con_seed_15",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-07-25T17:02:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a15_2",
+          "contractId": "con_seed_15",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đã hủy",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-07-26T17:02:54.663Z",
+          "note": "HỦY HỒ SƠ: Sếp chỉ đạo hủy thầu dự án thi công biển quảng cáo do thay đổi ngân sách và kế hoạch của chi nhánh mới. Dừng khâu in ấn."
+        }
+      ],
+      "uploaded_at": "2026-07-25T17:02:54.663Z",
+      "printed_at": null,
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": false,
+      "slaBreachType": null,
+      "lastActivityAt": "2026-07-26T17:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Đặng Quốc Bảo",
+      "receiverPhone": "0389876543",
+      "receiverAddress": "85 Nguyễn Du, Quận Hai Bà Trưng, Hà Nội"
+    },
+    {
+      "id": "con_seed_16",
+      "name": "Hợp đồng Tổ chức Chuỗi Hội thảo Phát triển Nguồn vốn Số",
+      "contractNumber": "HD-2026-MRA06",
+      "partnerName": "Công ty Cổ phần Sự kiện Agribank Land",
+      "value": "520,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Hoàn tất",
+      "waybillCode": "VTP-SEED-1616",
+      "vtpStatusHistory": [
+        {
+          "status": "DELIVERED",
+          "updatedAt": "2026-07-31T17:02:54.663Z",
+          "note": "Phát hàng thành công."
+        }
+      ],
+      "files": [
+        {
+          "id": "f16_org",
+          "name": "HD_Hoi_Thao_Von_So_2026.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-07-25T17:02:54.663Z",
+          "size": 620000,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Hoi_Thao_Von_So_2026.docx"
+        },
+        {
+          "id": "f16_scan",
+          "name": "HD_Hoi_Thao_Von_So_scanned.pdf",
+          "type": "scan",
+          "uploadedBy": "clerk@test.com",
+          "uploadedAt": "2026-08-01T17:02:54.663Z",
+          "size": 1890200,
+          "mimeType": "application/pdf",
+          "filePath": "data/contracts/HD_Hoi_Thao_Von_So_scanned.pdf"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a16_1",
+          "contractId": "con_seed_16",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-07-25T17:02:54.663Z",
+          "note": "Tạo mới."
+        },
+        {
+          "id": "a16_2",
+          "contractId": "con_seed_16",
+          "fromStatus": "Chờ bản gửi lại",
+          "toStatus": "Hoàn tất",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-01T17:02:54.663Z",
+          "note": "Scan số hóa lưu trữ thành công."
+        }
+      ],
+      "uploaded_at": "2026-07-25T17:02:54.663Z",
+      "printed_at": "2026-07-26T17:02:54.663Z",
+      "signed_at": "2026-07-27T17:02:54.663Z",
+      "waybill_created_at": "2026-07-28T17:02:54.663Z",
+      "picked_up_at": "2026-07-29T17:02:54.663Z",
+      "delivered_at": "2026-07-31T17:02:54.663Z",
+      "received_back_at": "2026-08-01T17:02:54.663Z",
+      "archived_at": "2026-08-01T17:02:54.663Z",
+      "slaBreached": false,
+      "slaBreachType": null,
+      "lastActivityAt": "2026-08-01T17:02:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Phan Minh Tuấn",
+      "receiverPhone": "0354123987",
+      "receiverAddress": "45 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh"
+    },
+    {
+      "id": "con_seed_17",
+      "name": "Hợp đồng Thuê Mặt bằng Gian hàng Giới thiệu Sản phẩm tại Hội chợ",
+      "contractNumber": "HD-2026-MRA07",
+      "partnerName": "Công ty Cổ phần Sự kiện Agribank Land",
+      "value": "120,000,000 VND",
+      "signDate": "2026-08-04",
+      "effectiveDate": "2026-08-04",
+      "status": "Đang chờ ký",
+      "waybillCode": "",
+      "vtpStatusHistory": [],
+      "files": [
+        {
+          "id": "f17",
+          "name": "HD_Thue_Gian_Hang_Hoi_Cho_2026.docx",
+          "type": "original",
+          "uploadedBy": "legal@test.com",
+          "uploadedAt": "2026-08-04T15:50:54.663Z",
+          "size": 380400,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "data/contracts/HD_Thue_Gian_Hang_Hoi_Cho_2026.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "a17_1",
+          "contractId": "con_seed_17",
+          "fromStatus": null,
+          "toStatus": "Chờ in",
+          "updatedBy": "legal@test.com",
+          "updatedAt": "2026-08-04T15:50:54.663Z",
+          "note": "Khởi tạo."
+        },
+        {
+          "id": "a17_2",
+          "contractId": "con_seed_17",
+          "fromStatus": "Chờ in",
+          "toStatus": "Đang chờ ký",
+          "updatedBy": "clerk@test.com",
+          "updatedAt": "2026-08-04T16:50:54.663Z",
+          "note": "In và trình ký."
+        }
+      ],
+      "uploaded_at": "2026-08-04T15:50:54.663Z",
+      "printed_at": "2026-08-04T16:50:54.663Z",
+      "signed_at": null,
+      "waybill_created_at": null,
+      "picked_up_at": null,
+      "delivered_at": null,
+      "received_back_at": null,
+      "archived_at": null,
+      "slaBreached": true,
+      "slaBreachType": "internal",
+      "lastActivityAt": "2026-08-04T16:50:54.663Z",
+      "processingMethod": "physical",
+      "printCopies": 2,
+      "receiverName": "Vũ Thị Hồng Nhung",
+      "receiverPhone": "0932154876",
+      "receiverAddress": "Tòa nhà VNPT, 57 Huỳnh Thúc Kháng, Đống Đa, Hà Nội"
+    }
+  ]
+}

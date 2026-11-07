@@ -1,0 +1,6 @@
+{
+  "summary": "Kế hoạch rà soát toàn diện và cập nhật toàn bộ tài liệu kỹ thuật (MD files), kiến trúc chuyển đổi sang Production Stack (PostgreSQL + Drizzle ORM + Docker Compose) kèm script migration.",
+  "updatedAt": "2026-10-18T06:45:56.657712815Z",
+  "requestFeedback": true,
+  "userFacing": true
+}

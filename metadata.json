@@ -1,0 +1,10 @@
+{
+  "name": "new Hệ thống Quản lý Hợp đồng Nội bộ",
+  "description": "Hệ thống số hóa quy trình quản lý hợp đồng nội bộ, theo dõi trạng thái, tính toán SLA, tích hợp Viettel Post, Google Drive, Teams và tự động trích xuất thông tin bằng AI.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

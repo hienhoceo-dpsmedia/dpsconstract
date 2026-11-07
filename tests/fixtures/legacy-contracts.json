@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "slaInternalHours": 24,
+    "slaViettelPostDays": 3,
+    "defaultBasePayLegal": 500000,
+    "defaultBasePayClerk": 100000,
+    "users": [
+      { "email": "admin@dps.media", "role": "admin", "invitedAt": "2026-01-01T00:00:00Z" },
+      { "email": "legal@dps.media", "role": "legal", "invitedAt": "2026-01-01T00:00:00Z" }
+    ]
+  },
+  "contracts": [
+    {
+      "id": "con_legacy_001",
+      "name": "Hợp Đồng Dịch Vụ Marketing",
+      "contractNumber": "HD-LEGACY-01",
+      "partnerName": "Công Ty Cổ Phần Alpha",
+      "value": "150,000,000 VND",
+      "signDate": "2026-01-10",
+      "effectiveDate": "2026-01-15",
+      "status": "Chờ in",
+      "uploaded_at": "2026-01-05T08:00:00Z",
+      "slaBreached": false,
+      "files": [
+        {
+          "id": "file_legacy_1",
+          "name": "ban_thao_marketing.docx",
+          "type": "original",
+          "uploadedBy": "legal@dps.media",
+          "uploadedAt": "2026-01-05T08:00:00Z",
+          "size": 24500,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "filePath": "uploads/non_existent_file.docx"
+        }
+      ],
+      "auditLog": [
+        {
+          "id": "audit_1",
+          "contractId": "con_legacy_001",
+          "fromStatus": null,
+          "toStatus": "Chờ duyệt bản mềm",
+          "updatedBy": "legal@dps.media",
+          "updatedAt": "2026-01-05T08:00:00Z",
+          "note": "Tạo yêu cầu soạn thảo"
+        }
+      ]
+    }
+  ]
+}
+

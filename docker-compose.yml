@@ -1,0 +1,74 @@
+# ==============================================================================
+# DOCKER COMPOSE CONFIGURATION - PRODUCTION STACK
+# Services: App (Express + React 19) + Database (PostgreSQL 16)
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. PostgreSQL Database Service
+  # ----------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: contracts_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_secret_password}
+      POSTGRES_DB: ${POSTGRES_DB:-contracts_db}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./data/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-contracts_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - contracts_net
+
+  # ----------------------------------------------------------------------------
+  # 2. Main Full-Stack Application Service (Express API + Vite SPA)
+  # ----------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: contracts_app
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres_secret_password}@postgres:5432/${POSTGRES_DB:-contracts_db}?sslmode=disable
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
+      - TEAMS_WEBHOOK_URL=${TEAMS_WEBHOOK_URL:-}
+      - VTP_BASE_URL=${VTP_BASE_URL:-https://partner.viettelpost.vn/v2}
+      - VTP_USERNAME=${VTP_USERNAME:-}
+      - VTP_PASSWORD=${VTP_PASSWORD:-}
+      - VTP_APP_TOKEN=${VTP_APP_TOKEN:-}
+    volumes:
+      # Persistent volume for contract files (.docx, .pdf, scans)
+      - contracts_uploads:/app/data/contracts
+      - ./data:/app/data
+    networks:
+      - contracts_net
+
+volumes:
+  pgdata:
+    driver: local
+  contracts_uploads:
+    driver: local
+
+networks:
+  contracts_net:
+    driver: bridge

@@ -1,0 +1,26 @@
+# Baseline Audit & Environment Verification (Phase 0)
+
+- Thời điểm hoàn thành Phase 0: 07/11/2026.
+- Môi trường:
+  - Hệ điều hành: Windows
+  - Node.js: v22.20.0
+  - npm: 10.9.3
+  - Docker: 29.6.2 (Engine đang hoạt động)
+  - Trạng thái Git: Không phải Git repository (tuân thủ nguyên tắc không tự khởi tạo Git).
+- Baseline Source & Backup:
+  - Bản sao lưu toàn bộ mã nguồn và dữ liệu gốc được tạo tại: `E:\GITHUB\dpsconstract_baseline_backup`
+  - Số lượng file đã sao lưu: 43 files kèm bảng hash SHA-256 lưu tại `manifest.json`.
+  - Dữ liệu `data/database.json` được bảo toàn nguyên vẹn với 18 hợp đồng mẫu (ID dạng `con_seed_*`).
+- Cấu trúc & Tooling:
+  - Cài đặt runtime packages (`pg`, `drizzle-orm`, `zod`, `argon2`, `express-session`, `connect-pg-simple`, `helmet`, `cors`).
+  - Cài đặt devDependencies (`drizzle-kit`, `vitest`, `supertest`, `@types/*`).
+  - Thiết lập `tsconfig.server.json` đưa toàn bộ backend và scripts vào strict typecheck.
+  - Sửa lỗi kiểu dữ liệu tồn đọng trong `server.ts` (thuộc tính `defaultBasePayLegal`, `shipped_at`, và bổ sung 2 trạng thái thiếu trong `statusCounts`).
+  - Thiết lập app factory `server/app.ts` tách biệt khởi tạo và lắng nghe cổng, bảo vệ bảo mật bằng Helmet, kiểm soát dung lượng body 1MB, gán Request ID.
+  - Thiết lập test harness cách ly `tests/setup.ts`, `tests/support/database.ts` (chống SQL injection trong tên schema, từ chối production DB URL), `tests/support/clock.ts` (đồng hồ deterministic không sleep), `tests/support/fixtures.ts` (sinh PDF và DOCX nhị phân hợp lệ).
+  - Khởi tạo `src/shared/contracts.ts` và `server/domain/types.ts` chuẩn hoá 12 trạng thái hợp đồng, 3 vai trò, ContractPage và Actor.
+- Kết quả kiểm thử Phase 0:
+  - `npm run test:unit`: 12/12 unit tests pass (100%).
+  - `npm run test:integration`: 6/6 integration tests pass (100%).
+  - `npm run lint`: pass (0 lỗi trên cả web và server).
+  - `npm run build`: pass (biên dịch Vite frontend và esbuild backend thành công).

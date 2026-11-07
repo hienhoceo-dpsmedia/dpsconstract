@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-server
+.env
+.env.local
+.env.*.local
+*.log
+data/logs.json
+uploads/*
+!uploads/.gitkeep
+backup
+*.tsbuildinfo
+coverage
+test-results
+
