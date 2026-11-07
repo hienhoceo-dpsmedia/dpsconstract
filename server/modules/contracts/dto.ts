@@ -69,7 +69,11 @@ export function toContractSummary(
     requested_by: row.createdBy ? String(row.createdBy) : undefined,
     clerk_assignee: row.clerkAssigneeId ? String(row.clerkAssigneeId) : undefined,
     allowedActions,
-  };
+    files: [],
+    vtpStatusHistory: [],
+    auditLog: [],
+    waybillCode: row.waybillCode || row.waybill_code ? String(row.waybillCode || row.waybill_code) : '',
+  } as unknown as ContractSummary;
 }
 
 export function toContractDetail(

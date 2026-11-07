@@ -3,6 +3,26 @@ import { contracts, payrollEntries, payrollAdjustments } from '../../db/schema.j
 import { sql, eq } from 'drizzle-orm';
 
 export interface ContractAggregatedReports {
+  // Compatibility with frontend ReportsData
+  statusCounts: Record<string, number>;
+  averages: {
+    avgUploadToPrintHours: number;
+    avgPrintToSignHours: number;
+    avgTotalCycleHours: number;
+  };
+  overdueContracts: Array<{
+    id: string;
+    contractNumber: string;
+    name: string;
+    partnerName: string;
+    status: string;
+    slaBreached: boolean;
+    slaBreachType?: string | null;
+    lastActivityAt?: string | null;
+    uploaded_at?: string | null;
+  }>;
+
+  // Extended analytics
   totalContracts: number;
   totalValueVnd: number;
   contractsByStatus: Record<string, number>;
@@ -35,19 +55,89 @@ export async function generateAggregatedReports(): Promise<ContractAggregatedRep
   const overviewResult = await pool.query(overviewQuery);
   const overview = overviewResult.rows[0] || { totalContracts: 0, totalValueVnd: 0, slaBreachCount: 0 };
 
-  // 2. Count by 12 statuses
+  // 2. Count by all 12 standard workflow statuses
+  const allStatuses = [
+    'Chờ soạn thảo',
+    'Chờ duyệt bản mềm',
+    'Chờ in',
+    'Đang chờ ký',
+    'Chờ tạo vận đơn',
+    'Chờ shipper đến lấy',
+    'Đang giao',
+    'Chờ bản gửi lại',
+    'Hoàn tất',
+    'Bị từ chối ký',
+    'Sự cố vận chuyển',
+    'Đã hủy',
+  ];
+
+  const statusCounts: Record<string, number> = {};
+  for (const st of allStatuses) {
+    statusCounts[st] = 0;
+  }
+
   const statusQuery = `
     SELECT "status", count(*)::int as "count"
     FROM "contracts"
     GROUP BY "status";
   `;
   const statusResult = await pool.query(statusQuery);
-  const contractsByStatus: Record<string, number> = {};
   for (const row of statusResult.rows) {
-    contractsByStatus[row.status] = row.count;
+    statusCounts[row.status] = Number(row.count) || 0;
   }
 
-  // 3. Payroll summary from snapshot ledgers
+  // 3. Calculate latency averages in hours
+  const latencyQuery = `
+    SELECT
+      coalesce(round(avg(EXTRACT(EPOCH FROM ("printed_at" - "uploaded_at")) / 3600)::numeric, 1), 0.0) as "avgUploadToPrintHours",
+      coalesce(round(avg(EXTRACT(EPOCH FROM ("signed_at" - "printed_at")) / 3600)::numeric, 1), 0.0) as "avgPrintToSignHours",
+      coalesce(round(avg(EXTRACT(EPOCH FROM ("archived_at" - "uploaded_at")) / 3600)::numeric, 1), 0.0) as "avgTotalCycleHours"
+    FROM "contracts";
+  `;
+  const latencyResult = await pool.query(latencyQuery);
+  const latencyRow = latencyResult.rows[0] || {
+    avgUploadToPrintHours: 0.0,
+    avgPrintToSignHours: 0.0,
+    avgTotalCycleHours: 0.0,
+  };
+
+  const averages = {
+    avgUploadToPrintHours: parseFloat(latencyRow.avgUploadToPrintHours) || 0,
+    avgPrintToSignHours: parseFloat(latencyRow.avgPrintToSignHours) || 0,
+    avgTotalCycleHours: parseFloat(latencyRow.avgTotalCycleHours) || 0,
+  };
+
+  // 4. Overdue contracts list
+  const overdueQuery = `
+    SELECT 
+      "id",
+      "contract_number" as "contractNumber",
+      "name",
+      "partner_name" as "partnerName",
+      "status",
+      "sla_breached" as "slaBreached",
+      "sla_breach_type" as "slaBreachType",
+      "last_activity_at" as "lastActivityAt",
+      "uploaded_at" as "uploaded_at"
+    FROM "contracts"
+    WHERE "sla_breached" = true
+    ORDER BY "last_activity_at" ASC
+    LIMIT 100;
+  `;
+  const overdueResult = await pool.query(overdueQuery);
+  const overdueContracts = overdueResult.rows.map(r => ({
+    id: r.id,
+    contractNumber: r.contractNumber,
+    name: r.name,
+    partnerName: r.partnerName,
+    status: r.status,
+    slaBreached: Boolean(r.slaBreached),
+    slaBreachType: r.slaBreachType || null,
+    lastActivityAt: r.lastActivityAt ? new Date(r.lastActivityAt).toISOString() : null,
+    uploaded_at: r.uploaded_at ? new Date(r.uploaded_at).toISOString() : null,
+  }));
+
+  // 5. Payroll summary from snapshot ledgers
   const payrollQuery = `
     SELECT
       coalesce(sum(p."amount_vnd") FILTER (WHERE u."role" = 'legal'), 0)::bigint as "totalLegalPayrollVnd",
@@ -70,7 +160,7 @@ export async function generateAggregatedReports(): Promise<ContractAggregatedRep
   const totalAdjustments = Number(adjRow.totalAdjustmentsVnd || 0);
   const netPayroll = totalLegal + totalClerk + totalAdjustments;
 
-  // 4. Top 5 partners
+  // 6. Top 5 partners
   const topPartnersQuery = `
     SELECT 
       "partner_name" as "partnerName",
@@ -93,9 +183,12 @@ export async function generateAggregatedReports(): Promise<ContractAggregatedRep
   const slaBreachRate = totalContracts > 0 ? Math.round((slaBreachCount / totalContracts) * 100) : 0;
 
   return {
+    statusCounts,
+    averages,
+    overdueContracts,
     totalContracts,
     totalValueVnd: Number(overview.totalValueVnd || 0),
-    contractsByStatus,
+    contractsByStatus: statusCounts,
     slaBreachCount,
     slaBreachRate,
     payrollSummary: {

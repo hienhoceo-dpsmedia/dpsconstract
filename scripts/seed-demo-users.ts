@@ -3,64 +3,47 @@ import { users } from '../server/db/schema.js';
 import { hashPassword } from '../server/modules/auth/passwords.js';
 import { eq } from 'drizzle-orm';
 
-async function seed() {
+async function seedDemoUsers() {
   const db = getDb();
+  const password = 'AdminPassword123!';
+  const passwordHash = await hashPassword(password);
 
   const demoAccounts = [
-    {
-      id: 'demo_admin_01',
-      email: 'admin@dps.media',
-      name: 'Quản Trị Viên (Admin)',
-      role: 'admin' as const,
-      plainPass: 'Admin@123456!',
-    },
-    {
-      id: 'demo_legal_01',
-      email: 'legal@dps.media',
-      name: 'Nguyễn Văn Pháp Chế (Legal)',
-      role: 'legal' as const,
-      plainPass: 'Legal@123456!',
-    },
-    {
-      id: 'demo_clerk_01',
-      email: 'clerk@dps.media',
-      name: 'Trần Thị Văn Thư (Clerk)',
-      role: 'clerk' as const,
-      plainPass: 'Clerk@123456!',
-    },
+    { email: 'admin@dps.media', name: 'Giám Đốc Quản Trị', role: 'admin' as const },
+    { email: 'legal@dps.media', name: 'Chuyên Viên Pháp Chế', role: 'legal' as const },
+    { email: 'clerk@dps.media', name: 'Cán Bộ Văn Thư', role: 'clerk' as const },
   ];
 
   for (const acc of demoAccounts) {
-    const passwordHash = await hashPassword(acc.plainPass);
-
-    await db
-      .insert(users)
-      .values({
-        id: acc.id,
+    const [existing] = await db.select().from(users).where(eq(users.email, acc.email));
+    if (existing) {
+      await db.update(users).set({
+        name: acc.name,
+        role: acc.role,
+        passwordHash,
+        status: 'active',
+      }).where(eq(users.id, existing.id));
+      console.log(`[UPDATED] User ${acc.email} (${acc.role}) with password: ${password}`);
+    } else {
+      const id = `usr_${acc.role}_demo_${Date.now()}`;
+      await db.insert(users).values({
+        id,
         email: acc.email,
         name: acc.name,
         role: acc.role,
         passwordHash,
         status: 'active',
-      })
-      .onConflictDoUpdate({
-        target: users.email,
-        set: {
-          passwordHash,
-          status: 'active',
-          role: acc.role,
-          name: acc.name,
-        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
-
-    console.log(`[SEED] Thiết lập tài khoản: ${acc.email} | Vai trò: ${acc.role} | Mật khẩu: ${acc.plainPass}`);
+      console.log(`[INSERTED] User ${acc.email} (${acc.role}) with password: ${password}`);
+    }
   }
 
   process.exit(0);
 }
 
-seed().catch((err) => {
-  console.error('[SEED_ERROR]', err);
+seedDemoUsers().catch(err => {
+  console.error(err);
   process.exit(1);
 });
-

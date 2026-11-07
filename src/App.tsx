@@ -759,10 +759,10 @@ export default function App() {
                           <p className="text-xs text-slate-505 font-medium">
                             Hôm nay có <span className="font-extrabold text-slate-900 font-mono">{WORKFLOW_STEPS.reduce((acc, step) => acc + getStepCount(step, contracts), 0)}</span> việc cần xử lý.
                           </p>
-                          {(reports?.overdueContracts.length || 0) > 0 && (
+                          {(reports?.overdueContracts?.length || 0) > 0 && (
                             <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-150 w-fit">
                               <AlertTriangle size={10} className="animate-bounce" />
-                              {(reports?.overdueContracts.length || 0)} hồ sơ vượt SLA cảnh báo!
+                              {(reports?.overdueContracts?.length || 0)} hồ sơ vượt SLA cảnh báo!
                             </span>
                           )}
                         </div>
@@ -819,7 +819,7 @@ export default function App() {
                           <AlertTriangle size={12} className="text-rose-500 animate-pulse" />
                           Hồ sơ trễ hạn / Cận SLA
                         </h3>
-                        {reports?.overdueContracts && reports.overdueContracts.length > 0 && (
+                        {Array.isArray(reports?.overdueContracts) && reports.overdueContracts.length > 0 && (
                           <span className="bg-rose-100 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full font-mono">
                             {reports.overdueContracts.length} hồ sơ
                           </span>
@@ -827,7 +827,7 @@ export default function App() {
                       </div>
 
                       <div className="space-y-2">
-                        {!reports?.overdueContracts || reports.overdueContracts.length === 0 ? (
+                        {!Array.isArray(reports?.overdueContracts) || reports.overdueContracts.length === 0 ? (
                           <div className="bg-emerald-50/40 border border-emerald-100 rounded-2xl p-4.5 text-center space-y-1">
                             <p className="text-emerald-700 text-xs font-bold font-sans">🎉 Không có hồ sơ bị trễ hạn</p>
                             <p className="text-emerald-600/80 text-[10px] leading-relaxed">Tuyệt vời! Toàn bộ hồ sơ đang được các bộ phận liên thông xử lý đúng tiến độ SLA.</p>
@@ -907,12 +907,12 @@ export default function App() {
                         <div className="grid grid-cols-2 gap-2">
                           <div className="bg-slate-50/50 p-2.5 rounded-xl border border-slate-200/50 text-center">
                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-sans">Thời in</p>
-                            <p className="text-xs font-black text-slate-800 mt-1">{reports.averages.avgUploadToPrintHours}h</p>
+                            <p className="text-xs font-black text-slate-800 mt-1">{reports?.averages?.avgUploadToPrintHours ?? '0.0'}h</p>
                             <p className="text-[7px] text-slate-400 mt-0.5 font-medium">Pháp chế ➔ In</p>
                           </div>
                           <div className="bg-slate-50/50 p-2.5 rounded-xl border border-slate-200/50 text-center">
                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-sans">Ký duyệt</p>
-                            <p className="text-xs font-black text-slate-800 mt-1">{reports.averages.avgPrintToSignHours}h</p>
+                            <p className="text-xs font-black text-slate-800 mt-1">{reports?.averages?.avgPrintToSignHours ?? '0.0'}h</p>
                             <p className="text-[7px] text-slate-400 mt-0.5 font-medium">In ➔ Ký tay</p>
                           </div>
                         </div>

@@ -152,7 +152,7 @@ export const ContractTable: React.FC<ContractTableProps> = ({
           },
           category: 'primary'
         });
-        if (contract.files.some(f => f.type === 'scan')) {
+        if (Array.isArray(contract.files) && contract.files.some(f => f.type === 'scan')) {
           options.push({
             label: '✅ Hoàn tất & Lưu kho',
             action: () => handleArchiveContract(contract.id),
@@ -812,7 +812,8 @@ export const ContractTable: React.FC<ContractTableProps> = ({
             ) : (
               table.getRowModel().rows.map((row) => {
                 const contract = row.original;
-                const vtpLastStatus = contract.vtpStatusHistory[contract.vtpStatusHistory.length - 1];
+                const vtpList = Array.isArray(contract.vtpStatusHistory) ? contract.vtpStatusHistory : [];
+                const vtpLastStatus = vtpList.length > 0 ? vtpList[vtpList.length - 1] : null;
                 const isEditing = editingContractId === contract.id;
                 const isActionPending = actionContractId === contract.id;
 
@@ -902,7 +903,7 @@ export const ContractTable: React.FC<ContractTableProps> = ({
                             </div>
                           )}
 
-                          {contract.status === 'Chờ bản gửi lại' && currentUser.role === 'clerk' && !contract.files.some(f => f.type === 'scan') && (
+                          {contract.status === 'Chờ bản gửi lại' && currentUser.role === 'clerk' && !(Array.isArray(contract.files) && contract.files.some(f => f.type === 'scan')) && (
                             <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                               <button 
                                 onClick={() => {
@@ -1169,7 +1170,7 @@ export const ContractTable: React.FC<ContractTableProps> = ({
                                 <div className="border-t border-slate-100 my-1"></div>
 
                                 {/* Download items */}
-                                {contract.files.map((file) => {
+                                {(contract.files || []).map((file) => {
                                   const isScanFile = file.type === 'scan';
                                   const canDownloadScan = contract.status === 'Chờ bản gửi lại' || contract.status === 'Hoàn tất';
                                   if (isScanFile && !canDownloadScan) return null;
@@ -1533,7 +1534,8 @@ export const ContractTable: React.FC<ContractTableProps> = ({
           </div>
         ) : (
           mobileContracts.map((contract) => {
-            const vtpLastStatus = contract.vtpStatusHistory[contract.vtpStatusHistory.length - 1];
+            const vtpList = Array.isArray(contract.vtpStatusHistory) ? contract.vtpStatusHistory : [];
+            const vtpLastStatus = vtpList.length > 0 ? vtpList[vtpList.length - 1] : null;
 
             return (
               <div key={contract.id} className={`p-3.5 transition border-b border-slate-100/80 ${contract.slaBreached ? 'bg-rose-50/10' : ''}`} id={`contract-card-${contract.id}`}>
@@ -1692,20 +1694,22 @@ export const ContractTable: React.FC<ContractTableProps> = ({
                           <div className="border-t border-slate-100 my-1"></div>
 
                           {/* Original PDF */}
-                          <a
-                            href={`/api/contracts/${contract.id}/files/${contract.files.find(f => f.type === 'original')?.id}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full flex items-center gap-1.5 px-3 py-1.5 hover:bg-slate-50 text-[11px] font-semibold text-slate-700 cursor-pointer text-left"
-                          >
-                            <FileText size={12} className="text-slate-400" />
-                            Tải file gốc (PDF)
-                          </a>
+                          {(contract.files || []).some(f => f.type === 'original') && (
+                            <a
+                              href={`/api/contracts/${contract.id}/files/${(contract.files || []).find(f => f.type === 'original')?.id}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full flex items-center gap-1.5 px-3 py-1.5 hover:bg-slate-50 text-[11px] font-semibold text-slate-700 cursor-pointer text-left"
+                            >
+                              <FileText size={12} className="text-slate-400" />
+                              Tải file gốc (PDF)
+                            </a>
+                          )}
 
                           {/* Scan PDF */}
-                          {contract.files.some(f => f.type === 'scan') && (
+                          {(contract.files || []).some(f => f.type === 'scan') && (
                             <a
-                              href={`/api/contracts/${contract.id}/files/${contract.files.find(f => f.type === 'scan')?.id}`}
+                              href={`/api/contracts/${contract.id}/files/${(contract.files || []).find(f => f.type === 'scan')?.id}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="w-full flex items-center gap-1.5 px-3 py-1.5 hover:bg-slate-50 text-[11px] font-semibold text-emerald-600 cursor-pointer text-left"
@@ -1821,7 +1825,7 @@ export const ContractTable: React.FC<ContractTableProps> = ({
                               Up
                             </button>
                           )}
-                          {contract.files.some(f => f.type === 'scan') && (
+                          {Array.isArray(contract.files) && contract.files.some(f => f.type === 'scan') && (
                             <button 
                               onClick={() => handleArchiveContract(contract.id)}
                               className="bg-emerald-600 text-white rounded text-[9px] font-bold px-1.5 py-1 hover:bg-emerald-500"
