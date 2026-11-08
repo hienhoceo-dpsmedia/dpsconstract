@@ -1,3 +1,10 @@
+# MANDATORY RULES FOR FLASH MODEL (WINDOWS + DOCKER DESKTOP)
+1. BẮT BUỘC gọi tool `sequentialthinking` để lập kế hoạch trước khi sửa bất kỳ file nào.
+2. KHÔNG sửa quá 2 file trong 1 lượt. KHÔNG viết lại toàn bộ file dài, chỉ dùng công cụ edit từng đoạn nhỏ.
+3. Khi cần kiểm tra PostgreSQL, hãy chạy lệnh trực tiếp qua terminal (ví dụ: `docker compose ps`, hoặc `docker compose exec -T postgres psql -U postgres -d dpsconstract -c "\dt"`), TUYỆT ĐỐI KHÔNG dùng `data/database.json` cho runtime.
+4. Sau mỗi lần sửa file, BẮT BUỘC chạy `npm run check:types` và script `npm run test:*` tương ứng trong `package.json` để kiểm chứng.
+---
+
 # AGENTS.md - System Context, Coding Guidelines & Architecture Rules
 
 Tài liệu này đóng vai trò là kim chỉ nam cho các AI Coding Agents và kỹ sư phần mềm khi phát triển, bảo trì hoặc mở rộng **Hệ thống Quản lý Hợp đồng Nội bộ & Tính Lương SLA/KPI**.

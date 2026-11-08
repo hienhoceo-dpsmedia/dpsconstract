@@ -8,7 +8,7 @@ const config = loadConfig();
 let poolInstance: pg.Pool | null = null;
 
 export function getPool(connectionString?: string): pg.Pool {
-  if (poolInstance && !connectionString) {
+  if (poolInstance) {
     return poolInstance;
   }
 
@@ -17,22 +17,18 @@ export function getPool(connectionString?: string): pg.Pool {
     throw new Error('DATABASE_URL is not configured for database pool');
   }
 
-  const pool = new pg.Pool({
+  poolInstance = new pg.Pool({
     connectionString: conn || 'postgresql://postgres:postgrespassword@localhost:5433/dps_contract_test',
-    connectionTimeoutMillis: 5000,
+    connectionTimeoutMillis: 10000,
     idleTimeoutMillis: 30000,
     max: 20,
   });
 
-  pool.on('error', (err) => {
+  poolInstance.on('error', (err) => {
     console.error('[DB_POOL_ERROR] Unexpected error on idle client:', err.message);
   });
 
-  if (!connectionString) {
-    poolInstance = pool;
-  }
-
-  return pool;
+  return poolInstance;
 }
 
 export function getDb(connectionString?: string) {

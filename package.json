@@ -14,7 +14,12 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "bootstrap:admin": "tsx scripts/bootstrap-admin.ts",
+    "check:types": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
     "test:unit": "vitest run tests/unit",
+    "test:auth": "vitest run tests/integration/auth-session.test.ts tests/integration/auth-security.test.ts",
+    "test:contracts": "vitest run tests/integration/contracts-query.test.ts tests/integration/contract-edits.test.ts",
+    "test:workflow": "vitest run tests/unit/workflow-matrix.test.ts tests/integration/physical-workflow.test.ts",
+    "test:payroll": "vitest run tests/unit/payroll-engine.test.ts tests/integration/payroll-queries.test.ts",
     "test:integration": "vitest run tests/integration --fileParallelism=false"
   },
   "dependencies": {

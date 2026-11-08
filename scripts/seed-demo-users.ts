@@ -20,8 +20,6 @@ async function seedDemoUsers() {
         role: acc.role,
         passwordHash,
         status: 'active',
-        failedAttempts: 0,
-        lockedUntil: null,
       }).where(eq(users.id, existing.id));
       console.log(`[UPDATED] User ${acc.email} (${acc.role}) with password: ${acc.password}`);
     } else {

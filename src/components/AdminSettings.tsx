@@ -379,7 +379,7 @@ export const AdminSettings: React.FC<AdminSettingsProps> = ({
               Quản lý Người dùng &amp; Phân quyền (Google OAuth)
             </h3>
             <span className="text-[11px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 w-fit">
-              {filteredUsers.length} / {settings.users.length} tài khoản
+              {filteredUsers.length} / {(settings.users || []).length} tài khoản
             </span>
           </div>
 
@@ -558,7 +558,7 @@ export const AdminSettings: React.FC<AdminSettingsProps> = ({
               <input 
                 type="text" 
                 placeholder="https://outlook.office.com/webhook/..."
-                value={settings.teamsWebhookUrl}
+                value={settings.teamsWebhookUrl || ''}
                 onChange={(e) => setSettings({ ...settings, teamsWebhookUrl: e.target.value })}
                 className="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-mono w-full focus:outline-none"
               />
@@ -568,7 +568,7 @@ export const AdminSettings: React.FC<AdminSettingsProps> = ({
               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Payload Template (JSON)</label>
               <textarea 
                 rows={6}
-                value={settings.teamsPayloadTemplate}
+                value={settings.teamsPayloadTemplate || ''}
                 onChange={(e) => setSettings({ ...settings, teamsPayloadTemplate: e.target.value })}
                 className="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-mono w-full focus:outline-none"
               />
@@ -588,7 +588,7 @@ export const AdminSettings: React.FC<AdminSettingsProps> = ({
               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Folder ID hoặc Đường dẫn backup</label>
               <input 
                 type="text" 
-                value={settings.googleDriveFolderId}
+                value={settings.googleDriveFolderId || ''}
                 onChange={(e) => setSettings({ ...settings, googleDriveFolderId: e.target.value })}
                 className="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-mono w-full focus:outline-none"
               />

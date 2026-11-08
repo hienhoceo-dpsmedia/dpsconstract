@@ -1,13 +1,25 @@
 import { getSettingsRecord, updateSettingsRecord } from './repository.js';
 import { validateSettingsData, type ValidatedSettings } from './validation.js';
 import { AppError } from '../../http/errors.js';
+import { getDb } from '../../db/client.js';
+import { users } from '../../db/schema.js';
 
 export async function getSettings() {
   const record = await getSettingsRecord();
-  // Strip secret from returned settings
+  const db = getDb();
+  const userList = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      name: users.name,
+      role: users.role,
+      status: users.status,
+    })
+    .from(users);
+
   return {
     ...record,
-    // Hide teams webhook URL for non-admin callers if needed
+    users: userList,
   };
 }
 
